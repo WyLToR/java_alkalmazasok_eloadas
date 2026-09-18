@@ -4,16 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import soapclient.MNBArfolyamServiceSoap;
-import soapclient.MNBArfolyamServiceSoapGetCurrentExchangeRatesStringFaultFaultMessage;
-import soapclient.MNBArfolyamServiceSoapGetExchangeRatesStringFaultFaultMessage;
-import soapclient.MNBArfolyamServiceSoapGetInfoStringFaultFaultMessage;
 import soapclient.MNBArfolyamServiceSoapImpl;
+import soapclient.MNBArfolyamServiceSoapGetExchangeRatesStringFaultFaultMessage;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -39,27 +36,6 @@ public class EloadasBeadandoApplication {
 		return "index";
 	}
 
-	@GetMapping("/feladat1")
-	@ResponseBody
-	public String soapTeszt()
-			throws MNBArfolyamServiceSoapGetInfoStringFaultFaultMessage,
-			MNBArfolyamServiceSoapGetCurrentExchangeRatesStringFaultFaultMessage,
-			MNBArfolyamServiceSoapGetExchangeRatesStringFaultFaultMessage {
-
-		MNBArfolyamServiceSoapImpl impl = new MNBArfolyamServiceSoapImpl();
-		MNBArfolyamServiceSoap service =
-				impl.getCustomBindingMNBArfolyamServiceSoap();
-
-		return service.getInfo()
-				+ "<br>"
-				+ service.getCurrentExchangeRates()
-				+ "<br>"
-				+ service.getExchangeRates(
-				"2022-08-14",
-				"2022-09-14",
-				"EUR"
-		);
-	}
 	@GetMapping("/exercise")
 	public String soapForm(Model model) {
 		model.addAttribute("param", new MessagePrice());
